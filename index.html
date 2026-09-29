@@ -1,118 +1,248 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minimax | Materiales de Embalaje</title>
-<meta name="description" content="Minimax - materiales de embalaje en La Victoria, Lima. Film stretch, cintas, grapas, flejes y plástico burbuja.">
-
+<meta name="description" content="Minimax - materiales de embalaje para negocios, almacenes, empresas y emprendedores.">
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#123d78;background:#fff}
-header{background:#ffd522;padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-.logo{font-size:42px;font-weight:900;letter-spacing:-2px}
-.sub{font-size:13px;font-weight:700;letter-spacing:.7px}
-.btn{display:inline-block;background:#12b957;color:#fff;text-decoration:none;font-weight:800;padding:13px 23px;border-radius:28px}
-.hero{padding:52px 7%;background:#f5f8fc;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
-.hero h1{font-size:48px;line-height:1.08;margin:0 0 18px}
-.hero h1 span{color:#064a94}
-.hero p{font-size:18px;line-height:1.55;color:#555}
-.hero img{width:100%;display:block;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.15)}
-.products{padding:65px 6%}
-.products h2{text-align:center;font-size:36px;margin:0 0 10px}
-.intro{text-align:center;color:#666;font-size:17px;margin:0 auto 38px}
-.grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.card{overflow:hidden;background:#fff;border:1px solid #e3e8ef;border-radius:18px;box-shadow:0 5px 18px rgba(0,0,0,.08)}
-.card img{width:100%;height:205px;object-fit:cover;display:block;background:#eef2f7}
-.card-body{padding:20px}
-.card h3{margin:0 0 8px;font-size:21px}
-.card p{margin:0 0 16px;color:#666;line-height:1.45}
-.small{display:inline-block;background:#064a94;color:#fff;text-decoration:none;padding:10px 18px;border-radius:22px;font-weight:700;font-size:14px}
-.cta{margin:5px 6% 60px;padding:45px 25px;text-align:center;border-radius:22px;background:#ffd522}
-.cta h2{margin:0 0 10px;font-size:32px;color:#064a94}
-.cta p{color:#333;font-size:17px;margin-bottom:23px}
-.location{background:#064a94;color:#fff;padding:55px 7%;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.location h2{font-size:28px;margin-top:0}
-.location p{line-height:1.6}
-footer{background:#032f68;color:#fff;text-align:center;padding:28px 7%}
-footer p{opacity:.8;margin-bottom:0}
-@media(max-width:700px){
-header{padding:16px 5%}.logo{font-size:35px}header .btn{width:100%;text-align:center}
-.hero{grid-template-columns:1fr;padding:38px 5%}.hero h1{font-size:36px}.hero p{font-size:17px}
-.grid{grid-template-columns:1fr}.products{padding:48px 5%}.products h2{font-size:30px}
-.card img{height:220px}.cta{margin:0 5% 40px;padding:35px 20px}.cta h2{font-size:27px}
-.location{grid-template-columns:1fr;padding:45px 6%}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fa;
+  color:#263238;
+}
+header{
+  background:#ffd500;
+  padding:18px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.logo{
+  font-size:38px;
+  font-weight:900;
+  color:#164b9b;
+  letter-spacing:-2px;
+}
+.logo span{
+  display:block;
+  color:#164b9b;
+  font-size:12px;
+  letter-spacing:2px;
+  margin-top:-5px;
+}
+.whatsapp{
+  background:#159447;
+  color:white;
+  text-decoration:none;
+  padding:13px 22px;
+  border-radius:30px;
+  font-weight:800;
+}
+.hero{
+  max-width:1180px;
+  margin:35px auto 25px;
+  padding:45px 30px;
+  text-align:center;
+  background:white;
+  border-radius:24px;
+  box-shadow:0 8px 28px rgba(0,0,0,.08);
+}
+.hero h1{
+  font-size:44px;
+  line-height:1.1;
+  color:#164b9b;
+  margin-bottom:15px;
+}
+.hero h1 span{color:#111}
+.hero p{
+  max-width:720px;
+  margin:0 auto 24px;
+  font-size:18px;
+  color:#68727d;
+}
+.cta{
+  display:inline-block;
+  background:#164b9b;
+  color:#fff;
+  text-decoration:none;
+  padding:15px 30px;
+  border-radius:30px;
+  font-weight:800;
+}
+.section{
+  max-width:1180px;
+  margin:35px auto 60px;
+  padding:0 18px;
+}
+.section h2{
+  text-align:center;
+  color:#164b9b;
+  font-size:32px;
+  margin-bottom:28px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+.card{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 7px 22px rgba(0,0,0,.10);
+  transition:transform .2s,box-shadow .2s;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px rgba(0,0,0,.14);
+}
+.card img{
+  width:100%;
+  height:245px;
+  object-fit:cover;
+  display:block;
+}
+.content{
+  padding:20px 22px 23px;
+}
+.content h3{
+  color:#164b9b;
+  font-size:24px;
+  margin-bottom:10px;
+}
+.content p{
+  color:#68727d;
+  line-height:1.5;
+  min-height:48px;
+  margin-bottom:18px;
+}
+.btn{
+  display:inline-block;
+  background:#164b9b;
+  color:#fff;
+  text-decoration:none;
+  padding:11px 23px;
+  border-radius:25px;
+  font-weight:800;
+}
+.info{
+  background:#164b9b;
+  color:white;
+  padding:40px 20px;
+  text-align:center;
+}
+.info h2{margin-bottom:12px;font-size:30px}
+.info p{margin:7px 0;color:#eaf1ff}
+footer{
+  background:#0d3168;
+  color:#fff;
+  text-align:center;
+  padding:22px;
+  font-size:14px;
+}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:36px}
+}
+@media(max-width:600px){
+  header{justify-content:center;text-align:center}
+  .logo{font-size:34px}
+  .grid{grid-template-columns:1fr}
+  .hero{margin:20px 12px;padding:35px 20px}
+  .hero h1{font-size:31px}
+  .card img{height:230px}
 }
 </style>
 </head>
-
 <body>
+
 <header>
-<div><div class="logo">minimax</div><div class="sub">MATERIALES DE EMBALAJE</div></div>
-<a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20deseo%20una%20cotizaci%C3%B3n">COTIZA POR WHATSAPP</a>
+  <div class="logo">Minimax<span>MATERIALES DE EMBALAJE</span></div>
+  <a class="whatsapp" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar%20materiales%20de%20embalaje">COTIZA POR WHATSAPP</a>
 </header>
 
 <section class="hero">
-<div>
-<h1>Todo para tu <span>EMBALAJE</span> en un solo lugar</h1>
-<p>Materiales de embalaje para negocios, almacenes, empresas y emprendedores.</p>
-<p><b>Productos de calidad · Precios competitivos · Atención personalizada</b></p>
-<a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20deseo%20una%20cotizaci%C3%B3n">Cotiza ahora</a>
-</div>
-<img src="preview.jpeg" alt="Minimax materiales de embalaje">
+  <h1>Todo para tu <span>EMBALAJE</span><br>en un solo lugar</h1>
+  <p>Materiales de embalaje para negocios, almacenes, empresas y emprendedores.</p>
+  <a class="cta" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar">Cotiza ahora</a>
 </section>
 
-<section class="products">
-<h2>Nuestros productos</h2>
-<p class="intro">Soluciones profesionales para proteger, asegurar y transportar tus productos.</p>
+<section class="section">
+  <h2>Nuestros productos</h2>
 
-<div class="grid">
+  <div class="grid">
 
-<article class="card">
-<img src="https://images.unsplash.com/photo-1657043562192-20281e339592?auto=format&fit=crop&w=900&q=80" alt="Film stretch">
-<div class="card-body"><h3>Film stretch</h3><p>Film para embalaje manual y automático, ideal para asegurar cargas.</p><a class="small" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20quiero%20cotizar%20film%20stretch">Consultar</a></div>
-</article>
+    <article class="card">
+      <img src="film-stretch.jpg" alt="Film stretch">
+      <div class="content">
+        <h3>Film stretch</h3>
+        <p>Film para embalaje manual y automático, ideal para asegurar cargas.</p>
+        <a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar%20Film%20stretch">Consultar</a>
+      </div>
+    </article>
 
-<article class="card">
-<img src="https://images.unsplash.com/photo-1617912760188-9ef603157f1e?auto=format&fit=crop&w=900&q=80" alt="Cintas de embalaje">
-<div class="card-body"><h3>Cintas de embalaje</h3><p>Cintas para sellado de cajas y diferentes necesidades de embalaje.</p><a class="small" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20quiero%20cotizar%20cintas%20de%20embalaje">Consultar</a></div>
-</article>
+    <article class="card">
+      <img src="cintas-embalaje.jpg" alt="Cintas de embalaje">
+      <div class="content">
+        <h3>Cintas de embalaje</h3>
+        <p>Cintas para sellado de cajas y diferentes necesidades de embalaje.</p>
+        <a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar%20cintas%20de%20embalaje">Consultar</a>
+      </div>
+    </article>
 
-<article class="card">
-<img src="https://images.unsplash.com/photo-1757969039156-93c9e70c1e9b?auto=format&fit=crop&w=900&q=80" alt="Grapas y accesorios">
-<div class="card-body"><h3>Grapas</h3><p>Grapas y accesorios para trabajos de embalaje y cierre.</p><a class="small" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20quiero%20cotizar%20grapas">Consultar</a></div>
-</article>
+    <article class="card">
+      <img src="grapas.jpg" alt="Grapas">
+      <div class="content">
+        <h3>Grapas</h3>
+        <p>Grapas y accesorios para trabajos de embalaje y cierre.</p>
+        <a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar%20grapas">Consultar</a>
+      </div>
+    </article>
 
-<article class="card">
-<img src="https://images.unsplash.com/photo-1782405183431-893f08e24b1a?auto=format&fit=crop&w=900&q=80" alt="Flejes y accesorios">
-<div class="card-body"><h3>Flejes y accesorios</h3><p>Soluciones para asegurar productos, cajas y cargas.</p><a class="small" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20quiero%20cotizar%20flejes">Consultar</a></div>
-</article>
+    <article class="card">
+      <img src="flejes-accesorios.jpg" alt="Flejes y accesorios">
+      <div class="content">
+        <h3>Flejes y accesorios</h3>
+        <p>Flejes de plástico y poliéster, hebillas, sellos y herramientas de tensado.</p>
+        <a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar%20flejes%20y%20accesorios">Consultar</a>
+      </div>
+    </article>
 
-<article class="card">
-<img src="https://images.unsplash.com/photo-1736979110904-d9d9efb35cf6?auto=format&fit=crop&w=900&q=80" alt="Plástico burbuja">
-<div class="card-body"><h3>Plástico burbuja</h3><p>Protección para productos frágiles durante almacenamiento y transporte.</p><a class="small" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20quiero%20cotizar%20plastico%20burbuja">Consultar</a></div>
-</article>
+    <article class="card">
+      <img src="plastico-burbuja.jpg" alt="Plástico burbuja">
+      <div class="content">
+        <h3>Plástico burbuja</h3>
+        <p>Protección para tus productos durante el transporte.</p>
+        <a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20cotizar%20plastico%20burbuja">Consultar</a>
+      </div>
+    </article>
 
-<article class="card">
-<img src="https://images.unsplash.com/photo-1647884440195-ba849aa3a2ce?auto=format&fit=crop&w=900&q=80" alt="Otros productos de embalaje">
-<div class="card-body"><h3>Otros productos</h3><p>Consulta por nuestro catálogo y disponibilidad de productos.</p><a class="small" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20quiero%20consultar%20otros%20productos">Consultar</a></div>
-</article>
+    <article class="card">
+      <img src="otros-productos.jpg" alt="Otros productos de embalaje">
+      <div class="content">
+        <h3>Otros productos</h3>
+        <p>Consulta por nuestro catálogo y disponibilidad.</p>
+        <a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax,%20quiero%20consultar%20otros%20productos">Consultar</a>
+      </div>
+    </article>
 
-</div>
+  </div>
 </section>
 
-<section class="cta">
-<h2>¿Necesitas una cotización?</h2>
-<p>Escríbenos por WhatsApp y consulta precios y disponibilidad.</p>
-<a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20deseo%20una%20cotizaci%C3%B3n">💬 COTIZAR POR WHATSAPP</a>
+<section class="info">
+  <h2>¿Necesitas una cotización?</h2>
+  <p>Jr. Hipólito Unanue 616, La Victoria, Lima</p>
+  <p>Lunes a sábado: 9:00 a. m. – 8:00 p. m.</p>
+  <p>WhatsApp: +51 924 692 818</p>
 </section>
 
-<section class="location">
-<div><h2>📍 Visítanos</h2><p>Jr. Hipólito Unanue 616, La Victoria, Lima</p><p>🕐 Lunes a sábado: 9:00 a. m. – 8:00 p. m.</p><p>📱 WhatsApp: +51 924 692 818</p><a class="btn" href="https://www.google.com/maps/search/?api=1&query=MINIMAX%20MATERIALES%20DE%20EMBALAJE%20Jr.%20Hipolito%20Unanue%20616%20La%20Victoria%20Lima">Cómo llegar</a></div>
-<div><h2>¿Tienes alguna consulta?</h2><p>Nuestro equipo puede ayudarte a encontrar los materiales que necesitas para tu negocio.</p><a class="btn" href="https://wa.me/51924692818?text=Hola%20Minimax%2C%20tengo%20una%20consulta">Escribir por WhatsApp</a></div>
-</section>
+<footer>
+  © 2026 Minimax — Materiales de Embalaje
+</footer>
 
-<footer><b>minimax – Materiales de embalaje</b><p>La Victoria, Lima – Perú</p></footer>
 </body>
 </html>
